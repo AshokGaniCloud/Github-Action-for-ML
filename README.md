@@ -4,6 +4,9 @@
 
 This project demonstrates how to build a machine learning pipeline for predicting customer churn using a Gradient Boosting Classifier. It leverages GitHub Actions for automation and Continuous Machine Learning (CML) for tracking metrics and results directly in GitHub.
 
+![Github Action and CML Workflow](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hoDCvcyvwWVW2Xjx6QRQXQ.jpeg)
+*Image Source: [Medium](https://medium.com/)*
+
 ## Table of Contents
 
 - [Features](#features)
