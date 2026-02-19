@@ -1,0 +1,41 @@
+name: Build Ml Project
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    environment: production
+    permissions: write-all
+
+    steps:
+      - name: Self Checkout
+        uses: actions/checkout@v4
+      - name: Iterative SetUp
+        uses: iterative/setup-cml@v2
+      - name: Install Pip & package
+        run: pip install --upgrade pip && pip install -r requirements.txt
+      - name: Format
+        run: black *.py
+      - name: Install train
+        run: python train.py
+      - name: Evaluation
+        env:
+          REPO_TOKEN: ${{ secrets.GIT_TOKEN }}
+        run: | 
+          echo "## Model Metrics" > report.md
+          cat metrics.txt >> report.md
+            
+          echo '## Confusion Matrix Plot' >> report.md
+          echo '![Confusion Matrix](model_results.png)' >> report.md
+
+          echo '## ROC Curve' >> report.md
+          echo '![ROC Curve](roc_curve.png)' >> report.md
+
+          cml comment create report.md
